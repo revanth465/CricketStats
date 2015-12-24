@@ -1,0 +1,17 @@
+{
+    "contents" : "##########################################################################################\n# Designed and developed by Tinniam V Ganesh\n# Date : 27 Jun 2015\n# Function : clean\n# This function cleans the batsman's data file and returns the cleaned data frame for use in\n# other functions\n##########################################################################################\nclean <- function(file) {\n  \n    df <- read.csv(file,stringsAsFactor=FALSE,na.strings=c(NA,\"-\"))\n  # Remove rows where the batsman 'did not bat' - DNB\n  a <- df$Runs != \"DNB\"\n  batsman <- df[a,]\n  \n  # Remove rows with 'TDNB'\n  c <- batsman$Runs != \"TDNB\"\n  batsman <- batsman[c,]\n  \n  # Remove rows with absent\n  d <- batsman$Runs != \"absent\"\n  batsman <- batsman[d,]\n  \n  # Remove the \"* indicating not out\n  batsman$Runs <- as.numeric(gsub(\"\\\\*\",\"\",batsman$Runs))\n  \n  c <- complete.cases(batsman)\n  \n  batsmanComplete <- batsman[c,]\n  \n  list(val=dim(batsmanComplete),names = names(batsmanComplete),h=head(batsmanComplete))\n  \n  #Return the data frame \n  batsmanComplete\n}\n\n",
+    "created" : 1448928229090.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4085336753",
+    "id" : "D4FCFAB8",
+    "lastKnownWriteTime" : 1448923790,
+    "path" : "C:/Users/SriSaiKumar/Downloads/cricketr-master/cricketr-master/R/clean.R",
+    "project_path" : "R/clean.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

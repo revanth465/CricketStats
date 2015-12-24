@@ -1,0 +1,17 @@
+{
+    "contents" : "##########################################################################################\n# Function: bowlerWktsRunsPlot\n# This function makes boxplot of Wickets versus Runs concded\n###########################################################################################\nbowlerWktsRunsPlot <- function(file, name=\"A Googly\") {\n    b <- cleanBowlerData(file)\n    \n    # Create a color palette of 10 colors\n    p1 <-colorRampPalette(c(\"red\",\"blue\"))\n    palette <- p1(10)\n    \n    # Create boxplots\n    str <- paste(name,\"- Wkts vs Runs given\")\n    boxplot(Runs~Wkts,data=b, xlab=\"Wickets\",ylab=\"Run conceded\",main=str,\n            col=as.vector(palette))\n    mtext(\"Data source-Courtesy:ESPN Cricinfo\", side=1, line=4, adj=1.0, cex=0.8, col=\"blue\")\n}",
+    "created" : 1448929584036.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "525009785",
+    "id" : "5245D49C",
+    "lastKnownWriteTime" : 1448931350,
+    "path" : "C:/Users/SriSaiKumar/Downloads/cricketr-master/cricketr-master/R/bowlerWktsRunsPlot.R",
+    "project_path" : "R/bowlerWktsRunsPlot.R",
+    "properties" : {
+    },
+    "relative_order" : 7,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,17 @@
+{
+    "contents" : "##########################################################################################\n# Designed and developed by Tinniam V Ganesh\n# Date : 27 Jun 2015\n# Function: bowlerWktsFreqPercent\n# This function plots the Frequency percentage of wickets taken for the bowler\n#\n###########################################################################################\nbowlerWktsFreqPercent <- function(file, name=\"A Bowler\") {\n    bowler <- clean(file)\n    # Create a table of wickets\n    wktsTable <- table(bowler$Wkts)\n    \n    \n    #Convert to dataframe for easy processing\n    wktsDF <- as.data.frame(wktsTable)\n    \n    #Remove column with \"-\"\n    wktsDF <- wktsDF[2:nrow(wktsDF),]\n    \n    #Rename columns\n    colnames(wktsDF) <- c(\"Wickets\",\"Freq\")\n    \n    #Calculate wickets percentage\n    wktsDF$freqPercent <- (wktsDF$Freq/sum(wktsDF$Freq)) * 100\n    \n    # Ensure ascending order of wickets\n    wktsDF <- wktsDF[order(as.numeric(as.character(wktsDF$Wickets))),]\n    \n    \n    atitle <- paste(name,\"'s\", \"Wkts freq (%) vs Wkts\")\n    # Set margin\n    par(mar=c(5.1,4.1,4.1,2.1))\n    plot(as.numeric(as.character(wktsDF$Wickets)), wktsDF$freqPercent, type=\"o\",\n         xlab=\"Wickets\", ylab = \"Wicket Freq Percentages (%)\",\n         main = atitle, ylim=c(0,50),pch=15, col=\"blue\",lwd=\"3\")\n    \n    mtext(\"Data source-Courtesy:ESPN Cricinfo\", side=1, line=4, adj=1.0, cex=0.8, col=\"blue\")\n}",
+    "created" : 1448928206816.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "570100680",
+    "id" : "92C4D69E",
+    "lastKnownWriteTime" : 1448923790,
+    "path" : "C:/Users/SriSaiKumar/Downloads/cricketr-master/cricketr-master/R/bowlerWktsFreqPercent.R",
+    "project_path" : "R/bowlerWktsFreqPercent.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

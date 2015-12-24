@@ -1,0 +1,18 @@
+{
+    "contents" : "##########################################################################################\n# Designed and developed by Tinniam V Ganesh\n# Date : 26 Jun 2015\n# Function : getPlayerData\n# This function gets the data of batsman/bowler and returns the data frame. This data frame can\n# stored for use in other functions\n##########################################################################################\ngetPlayerData <- function(profile,dir=\"./data\",file=\"player001.csv\",type=\"batting\",\n                          homeOrAway=c(1,2),result=c(1,2,4)) {\n    \n    # Initial url to \"\"\n    url <-\"\"\n    suburl1 <- \"http://stats.espncricinfo.com/ci/engine/player/\"\n    suburl2 <-\"?class=1;\"\n    suburl3 <- \"template=results;\"\n    suburl4 <- \"view=innings\"\n    \n    # Create a profile.html with the profile number\n    player <- paste(profile,\".html\",sep=\"\")\n    \n    # Set the home or away\n    str1=str2=\"\"\n    if(sum(homeOrAway == 1)==1){\n        str1 =\"home_or_away=1;\"\n    }\n    if (sum(homeOrAway == 2)==1) {\n        str2=\"home_or_away=2;\"\n    }\n    HA<-paste(str1,str2,sep=\"\")\n    \n    # Set the type batting or bowling\n    t <- paste(\"type=\",type,\";\",sep=\"\");\n    \n    # Set the result based on input\n    str1=str2=str3=\"\"\n    if(sum(result==1)==1){\n        str1 =\"result=1;\"\n    }\n    if(sum(result==2)==1){\n        str2 =\"result=2;\"\n    }\n    if(sum(result==4)==1){\n        str3 =\"result=4;\"\n    }\n    result<- paste(str1,str2,str3,sep=\"\")\n    \n    # Create composite URL\n    url <- paste(suburl1,player,suburl2,HA,result,suburl3,t,suburl4,sep=\"\")\n    \n    \n    # Read the data from ESPN Cricinfo\n    tables<-readHTMLTable(url,stringsAsFactors = FALSE)\n    \n    # Choose appropriate columns\n    t <- tables$\"Innings by innings list\"\n    \n    if(type==\"batting\") {\n        cols <- c(1:9,11,12,13)\n    } else if (type==\"bowling\") {\n        # Check if there are the older version of 8 balls per over (BPO) column\n        n <- names(t)\n        \n        # Select BPO column for older bowlers\n        if(n[2] ==\"BPO\") {\n            cols <- c(1:8,10,11,12)\n        }\n        else {\n            cols <- c(1:7,9,10,11)\n        }\n    }\n    \n    s <- t[,cols]\n    \n    \n    dir.create(dir,mode=\"0777\",showWarnings=FALSE)\n    file <-paste(dir,file,sep=\"/\")\n    \n    file.create(file)\n    \n    # Write to file \n    write.csv(s,file=file)\n    \n    # Return the data frame\n    s\n    \n}",
+    "created" : 1448925698244.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1486884458",
+    "id" : "6C7F4293",
+    "lastKnownWriteTime" : 1448926849,
+    "path" : "C:/Users/SriSaiKumar/Downloads/cricketr-master/cricketr-master/R/getPlayerData.R",
+    "project_path" : "R/getPlayerData.R",
+    "properties" : {
+        "notebook_format" : "html_document"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
