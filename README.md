@@ -15,3 +15,4 @@ The following goals have been achieved by the above application:
 
 Achievements: 
 - Statistics of the players can be achieved that can be compared with all the other players which makes the job easy for selectors. 
+performance of bowlers
